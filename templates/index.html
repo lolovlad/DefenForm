@@ -1,0 +1,76 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div id="index-banner" class="parallax-container">
+    <div class="section no-pad-bot">
+        <div class="container">
+            <br><br>
+            <h1 class="header center white-text text-lighten-2">ЧОО "Купол"</h1>
+            <div class="row center">
+                <h5 class="header col s12 light white-text">"Мы обеспечиваем безопасность вашего бизнеса и личной собственности!"</h5>
+            </div>
+            <br><br>
+        </div>
+    </div>
+    <div class="parallax"><img src="{{ url_for('static', filename='img/back/security1.jpg') }}" alt="Охранные услуги" class="filter"></div>
+</div>
+
+<div class="container">
+    <div class="section">
+        <!-- Icon Section -->
+        <div class="row">
+            <div class="col s12 m4">
+                <div class="icon-block">
+                    <h2 class="center black-text"><i class="material-icons">security</i></h2>
+                    <h5 class="center">Охрана объектов</h5>
+                    <p class="light">Мы предоставляем услуги по охране объектов недвижимости — жилых комплексов, коммерческих зданий, производственных и складских помещений. Наши сотрудники обеспечивают высокий уровень безопасности.</p>
+                </div>
+            </div>
+
+            <div class="col s12 m4">
+                <div class="icon-block">
+                    <h2 class="center black-text"><i class="material-icons">attach_money</i></h2>
+                    <h5 class="center">Сопровождение ценностей</h5>
+                    <p class="light">Обеспечиваем сопровождение ценностей, включая денежные средства, драгоценности и другие ценные грузы. Мы гарантируем безопасность ваших активов на всех этапах перевозки.</p>
+                </div>
+            </div>
+
+            <div class="col s12 m4">
+                <div class="icon-block">
+                    <h2 class="center black-text"><i class="material-icons">person</i></h2>
+                    <h5 class="center">Личная охрана</h5>
+                    <p class="light">Предлагаем услуги личной охраны для руководителей, бизнесменов, публичных личностей и других клиентов, которым необходим высокий уровень безопасности в любых ситуациях.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="parallax-container">
+    <div class="section no-pad-bot">
+        <div class="container">
+            <br><br>
+            <h1 class="header center white-text text-lighten-2">Наша миссия</h1>
+            <div class="row center">
+                <h5 class="header col s12 light white-text">Обеспечить безопасность вашего бизнеса и жизни с использованием передовых технологий и профессионализма.</h5>
+            </div>
+            <br><br>
+        </div>
+    </div>
+    <div class="parallax"><img src="{{ url_for('static', filename='img/back/security2.jpg') }}" alt="Миссия" class="filter"></div>
+</div>
+
+<div class="container">
+    <div class="section">
+        <div class="row">
+            <div class="col s12 center">
+                <h3><i class="mdi-content-send brown-text"></i></h3>
+                <h4>Связаться с нами</h4>
+                <p class="left-align light">Если у вас есть вопросы или предложения, мы всегда рады вам помочь. Свяжитесь с нами по телефону +7 (495) 123-45-67, напишите нам на info@kupolsecurity.ru или воспользуйтесь онлайн-чатом на нашем сайте. Мы отвечаем на все запросы в течение одного рабочего дня. Спасибо, что выбираете ЧОО "Купол"!</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}

@@ -1,0 +1,69 @@
+.form__sigin{
+    width: 500px;
+    height: 100vh;
+    margin: auto;
+    margin-top: 150px;
+}
+
+.form__sigin__row{
+    height: 70%;
+}
+.table__container{
+    padding-top: 40px;
+    width: 90%;
+}
+
+.form__template__generate{
+    margin-top: 50px;
+    margin-bottom: 50px;
+}
+
+.form__sigup{
+    width: 800px;
+    height: 100vh;
+    margin: auto;
+    margin-top: 150px;
+}
+
+.form__pad{
+    margin: 15px 0px;
+}
+.prod_card{
+    height: 120px;
+    margin: 20px;
+}
+.img_prod_card{
+    width: 120px;
+    height: auto;
+}
+
+.address_order{
+    margin: 20px 0 30px 0;
+}
+.tab_marg{
+    padding: 20px 0;
+}
+
+.search{
+    margin: 20px auto 30px auto;
+}
+
+.profile{
+    width: 300px;
+    color: white;
+}
+
+.nav-link{
+    color: white;
+}
+
+.dropdown-content li > a, .dropdown-content li > span{
+    color: #212121;
+}
+
+.main__block{
+    min-height: 90vh;
+}
+.filter{
+    filter: brightness(0.5);
+}

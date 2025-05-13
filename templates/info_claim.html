@@ -1,0 +1,99 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="container">
+    <h4 class="teal-text text-darken-3 center-align">Информация о заявке</h4>
+
+    <!-- Карточка заявки -->
+    <div class="card z-depth-2" style="margin-bottom: 30px;">
+        <div class="card-content">
+            <span class="card-title">
+                <i class="material-icons left">assignment</i>
+                Заявка №{{ claim.trace_id }}
+            </span>
+
+            <div class="row">
+                <!-- Левая колонка: данные заявки -->
+                <div class="col s12 m6">
+                    <p><i class="material-icons tiny">event</i> <strong>Дата подачи:</strong><br> {{ claim.datetime_claim.strftime('%d.%m.%Y %H:%M') }}</p>
+                    <p><i class="material-icons tiny">place</i> <strong>Адрес объекта:</strong><br> {{ claim.address }}</p>
+                    <p><i class="material-icons tiny">description</i> <strong>Описание проблемы:</strong><br> {{ claim.description }}</p>
+                    <p><i class="material-icons tiny">build</i> <strong>Услуга:</strong><br> {{ claim.service_selection.name }}</p>
+                </div>
+
+                <!-- Правая колонка: статус и приоритет -->
+                <div class="col s12 m6">
+                    <p><i class="material-icons tiny">priority_high</i> <strong>Приоритет:</strong><br> {{ claim.priority.name if claim.priority else "Не задан" }}</p>
+                    <p><i class="material-icons tiny">info</i> <strong>Статус:</strong><br> {{ claim.status.name if claim.status else "Не указан" }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Контактные данные клиента -->
+    <div class="card blue lighten-5 z-depth-1" style="margin-bottom: 20px;">
+        <div class="card-content">
+            <span class="card-title">
+                <i class="material-icons left">person</i>
+                Контактные данные клиента
+            </span>
+            <p><strong>ФИО:</strong> {{ claim.user.surname }} {{ claim.user.name }}</p>
+            <p><strong>Телефон:</strong> {{ claim.user.phone }}</p>
+            <p><strong>Email:</strong> {{ claim.user.email }}</p>
+        </div>
+    </div>
+
+    <!-- Контактные данные сотрудника -->
+    <div class="card orange lighten-5 z-depth-1" style="margin-bottom: 30px;">
+        <div class="card-content">
+            <span class="card-title">
+                <i class="material-icons left">engineering</i>
+                Контактные данные сотрудника
+            </span>
+            {% if claim.worker %}
+                <p><strong>ФИО:</strong> {{ claim.worker.surname }} {{ claim.worker.name }}</p>
+                <p><strong>Телефон:</strong> {{ claim.worker.phone }}</p>
+                <p><strong>Email:</strong> {{ claim.worker.email }}</p>
+            {% else %}
+                <p>Сотрудник ещё не назначен.</p>
+            {% endif %}
+        </div>
+    </div>
+
+    <!-- Договор -->
+    {% if contract %}
+    <div class="card green lighten-4 z-depth-1">
+        <div class="card-content">
+            <span class="card-title">
+                <i class="material-icons left">description</i>
+                Договор по заявке
+            </span>
+            <div class="row">
+                <div class="col s12 m6">
+                    <p><strong>Номер договора:</strong><br> {{ contract.trace_id }}</p>
+                    <p><strong>Дата:</strong><br> {{ contract.datetime_contract.strftime('%d.%m.%Y %H:%M') }}</p>
+                    <p><strong>Стоимость:</strong><br> {{ contract.coast }} ₽</p>
+                </div>
+                <div class="col s12 m6">
+                    <p><strong>Условия:</strong><br> {{ contract.terms_and_conditions }}</p>
+                    <p><strong>Описание:</strong><br> {{ contract.description }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% else %}
+    <div class="card red lighten-4 z-depth-1">
+        <div class="card-content">
+            <span class="card-title">
+                <i class="material-icons left">warning</i>
+                Договор не заключён
+            </span>
+            <p>Для данной заявки договор пока не оформлен.</p>
+        </div>
+    </div>
+    {% endif %}
+</div>
+
+
+{% endblock %}

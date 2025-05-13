@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container" style="margin-top: 50px">
+    <h5>Мои заявки</h5>
+
+    <form method="get" class="row card-panel z-depth-1">
+        <div class="input-field col s12 m4">
+            {{ form.trace_id.label }}
+            {{ form.trace_id(class="validate") }}
+        </div>
+
+        <div class="input-field col s12 m4">
+            {{ form.status_id() }}
+        </div>
+
+        <div class="input-field col s12 m4">
+            {{ form.priority_id() }}
+        </div>
+
+        <div class="col s12 right-align">
+            <button type="submit" class="btn teal">
+                <i class="material-icons left">search</i> {{ form.submit.label.text }}
+            </button>
+        </div>
+    </form>
+
+    {% if claims %}
+        {% for claim in claims %}
+            <div class="row card-panel valign-wrapper">
+                <div class="col s2">
+                    <strong>Заявка №</strong><br> {{ claim.trace_id }}
+                </div>
+                <div class="col s3">
+                    <strong>Адрес:</strong><br> {{ claim.address }}
+                </div>
+                <div class="col s3">
+                    <strong>Услуга:</strong><br> {{ claim.service_selection.name }}
+                </div>
+                <div class="col s2">
+                    <strong>Статус:</strong><br> {{ claim.status.name if claim.status else "Не указан" }}
+                </div>
+                <div class="col s2">
+                    <a href="{{ url_for('claim_detail', uuid=claim.trace_id) }}" class="btn-small teal darken-2" style="margin-bottom: 5px;">Подробнее</a>
+                    {% if claim.status.name != 'Закрыта' %}
+                        <a href="{{ url_for('worker_blueprint.change_status', trace_id=claim.trace_id) }}" class="btn-small orange darken-2">Изменить статус</a>
+                    {% endif %}
+                </div>
+            </div>
+        {% endfor %}
+    {% else %}
+        <h6>У вас пока нет заявок.</h6>
+    {% endif %}
+</div>
+{% endblock %}

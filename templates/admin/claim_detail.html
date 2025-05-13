@@ -1,0 +1,55 @@
+{% extends 'admin/model/details.html' %}
+{% block body %}
+
+<div class="container mt-4">
+    <h4 class="text-info">Заявка №{{ model.trace_id }}</h4>
+
+    <!-- Основная информация -->
+    <div class="card mb-4">
+        <div class="card-header bg-primary text-white">
+            <i class="fas fa-file-alt"></i> Основная информация
+        </div>
+        <div class="card-body">
+            <p><strong>Дата заявки:</strong> {{ model.datetime_claim.strftime('%d.%m.%Y %H:%M') }}</p>
+            <p><strong>Адрес:</strong> {{ model.address }}</p>
+            <p><strong>Описание:</strong><br> {{ model.description }}</p>
+            <p><strong>Клиент:</strong> {{ model.user.surname }} {{ model.user.name }}</p>
+            <p><strong>Сотрудник:</strong> {{ model.worker.surname if model.worker else "Не назначен" }}</p>
+            <p><strong>Услуга:</strong> {{ model.service_selection.name }}</p>
+            <p><strong>Приоритет:</strong> {{ model.priority.name if model.priority else "Не задан" }}</p>
+            <p><strong>Статус:</strong> {{ model.status.name if model.status else "Не указан" }}</p>
+        </div>
+    </div>
+
+    <!-- Блок договора -->
+    {% if model.contract %}
+    <div class="card mb-4 border-success">
+        <div class="card-header bg-success text-white">
+            <i class="fas fa-file-contract"></i> Договор
+        </div>
+        <div class="card-body">
+            <p><strong>Номер договора:</strong> {{ model.contract.trace_id }}</p>
+            <p><strong>Дата договора:</strong> {{ model.contract.datetime_contract.strftime('%d.%m.%Y %H:%M') }}</p>
+            <p><strong>Стоимость:</strong> {{ model.contract.coast }} ₽</p>
+            <p><strong>Условия:</strong><br> {{ model.contract.terms_and_conditions }}</p>
+            <p><strong>Описание:</strong><br> {{ model.contract.description }}</p>
+        </div>
+    </div>
+    {% else %}
+    <div class="card mb-4 border-danger">
+        <div class="card-header bg-danger text-white">
+            <i class="fas fa-exclamation-triangle"></i> Договор не заключён
+        </div>
+        <div class="card-body">
+            <p>Для этой заявки договор пока не заключён.</p>
+        </div>
+    </div>
+    {% endif %}
+
+    <!-- Кнопка назад -->
+    <a href="{{ url_for('claim.index_view') }}" class="btn btn-secondary">
+        <i class="fas fa-arrow-left"></i> Назад
+    </a>
+</div>
+
+{% endblock %}

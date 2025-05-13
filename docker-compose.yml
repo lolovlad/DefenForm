@@ -1,0 +1,26 @@
+version: '3.9'
+services:
+
+  web:
+    container_name: nginx-python-droneshop
+    image: nginx:latest
+    depends_on:
+      -  app
+    ports:
+      - 9000:80
+    volumes:
+      - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
+
+
+  app:
+    container_name: "flask-confe"
+    image: app
+    environment:
+      - FLASK_ENV=development
+      - PYTHONUNBUFFERED=True
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command: ["/app/docker/app.sh"]
+    ports:
+      - 5000:5000

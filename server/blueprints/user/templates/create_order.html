@@ -1,0 +1,115 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <h1>Заказ</h1>
+    </div>
+    <div class="row">
+        <p>Информация о заказе</p>
+        {% for prod in products %}
+            <div class="col s12 prod_card">
+                <div class="row">
+                    <div class="col s2">
+                        <h5>{{prod.drone.name}}</h5>
+                    </div>
+                    <div class="col s3">
+                        <p> Компоненты: {% for i in prod.drone.components %}
+                            {{i.name}}
+                            {% endfor %}</p>
+                    </div>
+                    <div class="col s1">
+                        <p>Кол-во: {{prod.count}} шт.</p>
+                    </div>
+                    <div class="col s3">
+                        <p>Общаяя цена: {{prod.count * prod.price}} руб.</p>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+    <div class="row">
+        <div class="col s12">
+             <h3>{{sum_cart}} руб.</h3>
+        </div>
+    </div>
+    <div class="row">
+       <form method="POST" action="{{url_for('user_blueprint.create_order')}}" class="col s12">
+           {{ form.hidden_tag() }}
+           {% for field, errors in form.errors.items() %}
+               <div class="alert alert-danger" role="alert">
+                   {{ form[field].label }}: {{ ', '.join(errors) }}
+               </div>
+           {% endfor %}
+            <div class="row">
+                <div class="col s12">
+                    <ul class="tabs">
+                        <li class="tab col s3"><a href="#in_hall" id="in_hall-tab">Со скалад</a></li>
+                        <li class="tab col s3"><a href="#delivery" id="delivery-tab">Доставка</a></li>
+                    </ul>
+                </div>
+                <div id="in_hall" class="col s12">
+                    <div class="input-field col s5">
+                        {{ form.workshops() }}
+                        {{ form.workshops.label() }}
+                    </div>
+                </div>
+                <div id="delivery" class="col s12">
+                    <div class="row">
+                        <div class="input-field col s3">
+                            {{ form.city() }}
+                            {{ form.city.label() }}
+                        </div>
+                        <div class="input-field col s8">
+                            {{ form.street() }}
+                            {{ form.street.label() }}
+                        </div>
+                        <div class="input-field col s1">
+                            {{ form.home() }}
+                            {{ form.home.label() }}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-field col s6">
+                            {{ form.apartment() }}
+                            {{ form.apartment.label() }}
+                        </div>
+                        <div class="input-field col s6">
+                            {{ form.floor() }}
+                            {{ form.floor.label() }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field col s3">
+                    {{ form.type_payment() }}
+                    {{ form.type_payment.label() }}
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field col s10">
+                    {{ form.description.label() }}
+                    {{ form.description(class_="materialize-textarea", rows="3") }}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col s12">
+                     {{ form.submit(class_="btn btn-primary") }}
+                </div>
+            </div>
+       </form>
+    </div>
+</div>
+<script>
+    let in_hull_button = document.getElementById("in_hall-tab")
+    let delivery_button = document.getElementById("delivery-tab")
+    let type_order_input = document.getElementById("type_order")
+    in_hull_button.addEventListener("click", () => {
+        type_order_input.value = 1
+    })
+    delivery_button.addEventListener("click", () => {
+        type_order_input.value = 2
+    })
+</script>
+{% endblock %}

@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="container form__sigup">
+        <div class="row">
+            <form action="/registration" method="POST" class="col s12">
+                {% for field, errors in form.errors.items() %}
+                    <div class="alert alert-danger" role="alert">
+                        {{ form[field].label }}: {{ ', '.join(errors) }}
+                    </div>
+                {% endfor %}
+                {{ form.hidden_tag() }}
+                <div class="row">
+                    <div class="input-field col s4">
+                         {{ form.name.label() }}
+                         {{ form.name() }}
+                    </div>
+                    <div class="input-field col s4">
+                        {{ form.surname.label() }}
+                        {{ form.surname() }}
+                    </div>
+                    <div class="input-field col s4">
+                        {{ form.patronymics.label() }}
+                        {{ form.patronymics() }}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s6">
+                        {{ form.email.label() }}
+                        {{ form.email(size=32) }}
+                    </div>
+                    <div class="input-field col s6">
+                        {{ form.phone.label() }}
+                        {{ form.phone(size=32) }}
+                    </div>
+                </div>
+                <div class="input-field col s12">
+                    {{ form.type_service(class_="browser-default") }}
+                </div>
+                <div class="row">
+                    <div class="input-field col s12">
+                        {{ form.password.label() }}
+                        {{ form.password(size=32) }}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s12">
+                        {{ form.confirm.label(class_="form-label") }}
+                        {{ form.confirm(class_="form-control", size=32) }}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s12">
+                        {{ form.submit(class_="btn teal darken-2") }}
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+
+
+{% endblock %}

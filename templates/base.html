@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ title }}</title>
+
+    <!-- Подключаем стили -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/materialize.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+<body>
+
+    <!-- Навигация -->
+    <nav class="nav-wrapper grey darken-4">
+        <div class="container">
+            <a href="#" class="brand-logo">ЧОО «Купол»</a>
+            {% if menu %}
+                <ul id="nav-mobile" class="right hide-on-med-and-down">
+                    {% for p in menu %}
+                        <li>
+                            <a href="{{ url_for(p.url) }}">{{ p.title }}</a>
+                        </li>
+                    {% endfor %}
+                    {% if current_user.is_authenticated %}
+                        {% if current_user.user.role.name == "user" %}
+                            <a class="waves-effect waves-light btn teal darken-2" href="{{url_for('user_blueprint.add_claim')}}">Оставить заявку</a>
+                            <ul id="dropdown1" class="dropdown-content">
+                                <li><a class="dropdown-item darken-4" href="{{url_for('user_blueprint.list_claim')}}">История заявок</a></li>
+                                <li class="divider"></li>
+                                <li><a class="dropdown-item darken-4" href="{{url_for('logout')}}">Выход</a></li>
+                            </ul>
+                            <li><a class="dropdown-trigger" href="#!" data-target="dropdown1">Профиль<i class="material-icons right">arrow_drop_down</i></a></li>
+                        {% else %}
+                            <a class="btn teal darken-2" href="{{ url_for('logout') }}">Выход</a>
+                        {% endif %}
+                    {% else %}
+                        <a class="waves-effect waves-light btn teal darken-2" href="{{ url_for('login') }}">Вход</a>
+                        <a class="waves-effect waves-light btn teal darken-2" href="{{ url_for('registration') }}">Регистрация</a>
+                    {% endif %}
+                </ul>
+            {% endif %}
+        </div>
+    </nav>
+
+    <!-- Основной контент -->
+    <main class="main__block">
+        {% block content %}
+        {% endblock %}
+    </main>
+
+    <!-- Скрипты -->
+    <script src="{{ url_for('static', filename='js/bootstrap.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/materialize.js') }}"></script>
+    <script>
+        M.AutoInit()
+    </script>
+
+    <!-- Подвал -->
+    <footer class="page-footer grey darken-4">
+        <div class="container">
+            <div class="row">
+                <div class="col l6 s12">
+                    <h5 class="white-text">ЧОО «Купол»</h5>
+                    <p class="grey-text text-lighten-4">ЧОО «Купол» — надежный партнер в области безопасности, предлагающий широкий спектр охранных услуг для защиты вашего бизнеса и имущества. Мы обеспечиваем надежную охрану объектов, сопровождение ценностей и личную охрану с использованием самых современных технологий и профессиональных сотрудников.</p>
+                </div>
+                <div class="col l4 offset-l2 s12">
+                    <h5 class="white-text">Меню</h5>
+                    <ul>
+                        {% for p in menu %}
+                            <li>
+                                <a class="grey-text text-lighten-3" href="{{ url_for(p.url) }}">{{ p.title }}</a>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="footer-copyright">
+            <div class="container">
+                © 2025 ЧОО «Купол»
+                <a class="grey-text text-lighten-4 right" href="#!">Больше подробностей</a>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
+

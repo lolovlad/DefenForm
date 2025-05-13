@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <h1>Номер заказа</h1>
+        <h3>{{order.trace_id}}</h3>
+    </div>
+    <div class="row">
+        {% for prod in order.drone_products %}
+            <div class="col s12 prod_card">
+                <div class="row">
+                    <div class="col s2">
+                        <img src="{{url_for('static', filename='img/' + prod.drone.image)}}" class="responsive-img" alt="...">
+                    </div>
+                    <div class="col s3">
+                        <h5>{{prod.drone.name}}</h5>
+                    </div>
+                    <div class="col s4">
+                        <p> Комплектующие: {% for i in prod.drone.components %}
+                            {{i.name}}
+                            {% endfor %}</p>
+                        <p>Кол-во: {{prod.count}} шт.</p>
+                    </div>
+                    <div class="col s3">
+                        <p>Общаяя цена: {{prod.count * prod.price}} руб.</p>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+    <div class="row">
+       <h1>Информация о заказе</h1>
+       <p>Время заказа: {{order.datatime_order}}</p>
+       <p>Тип закзаз: {{ type_order[order.type_order.value] }}</p>
+       <p>Сотояние заказа: {{state_order[order.status_order.value]}}</p>
+       <p>Адресс: {{order.address}}</p>
+       <p>Описание: {{order.description}}</p>
+    </div>
+</div>
+{% endblock %}
