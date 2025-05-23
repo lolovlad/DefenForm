@@ -29,7 +29,7 @@ class Role(db.Model):
     description = Column(String(255))
 
     def __repr__(self):
-        return f"{self.name}"
+        return f"{self.description}"
 
 
 class TypeService(db.Model):
@@ -133,6 +133,7 @@ class Contract(db.Model):
     trace_id = Column(String, unique=True, default=str(uuid4()))
 
     id_claim = Column(Integer, ForeignKey('claim.id'))
+    number = Column(Integer, nullable=False, server_default="1")
 
     datetime_contract = Column(DateTime, nullable=True, default=datetime.datetime.now())
     description = Column(Text)

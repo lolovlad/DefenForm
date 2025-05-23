@@ -51,13 +51,24 @@
                 </div>
                 <div class="row">
                     <div class="input-field col s12">
+                        <label>
+                            {{ form.consent(class_="filled-in") }}
+                            <span>
+                                Я даю <a href="{{ url_for('static', filename='files/consent.docx') }}" download target="_blank">
+                                согласие на обработку персональных данных
+                                </a>
+                            </span>
+                        </label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s12">
                         {{ form.submit(class_="btn teal darken-2") }}
                     </div>
                 </div>
             </form>
         </div>
     </div>
-
 
 
 {% endblock %}

@@ -13,18 +13,21 @@ from ..repository import ClaimRepository
 
 class ContractAdminView(ModelView):
     column_labels = {
+        'number': "Номер договора",
         'datetime_contract': 'Дата заключения договора',
         'description': 'Описание',
         'terms_and_conditions': 'Условия договора',
-        'coast': 'Стоимость',
+        'coast': 'Стоимость (руб.)',
     }
     column_list = [
+        'number',
         'datetime_contract',
         'description',
         'terms_and_conditions',
         'coast'
     ]
     form_columns = [
+        'number',
         'datetime_contract',
         'description',
         'terms_and_conditions',

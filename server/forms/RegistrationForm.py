@@ -1,6 +1,6 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, BooleanField, SubmitField, SelectField
-from wtforms.validators import Length, Email, DataRequired, ValidationError, EqualTo
+from wtforms.validators import Length, Email, DataRequired, ValidationError, EqualTo, InputRequired
 from re import search
 
 
@@ -20,6 +20,11 @@ class RegistrationForm(FlaskForm):
     ])
     confirm = PasswordField('Повторите пароль')
 
+    consent = BooleanField(
+        "Я даю <a href='/consent' target='_blank'>согласие на обработку персональных данных</a>",
+        validators=[InputRequired(message="Необходимо согласиться на обработку персональных данных.")],
+        render_kw={"escape": False}
+    )
     submit = SubmitField("Регистрация")
 
     def validate_phone(form, field):

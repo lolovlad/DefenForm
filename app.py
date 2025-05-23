@@ -14,6 +14,7 @@ from server.models import GetUser
 from server.service import LoginService, UserService, ClaimService
 
 from server.admin_view import *
+from server.admin_view.ServiceSelectionAdminView import ServiceSelectionAdminView
 
 from server.forms import LoginForm, RegistrationForm
 
@@ -57,7 +58,7 @@ route = {
 }
 
 menu = [
-    {"url": "index", "title": "главная"},
+    {"url": "index", "title": "Главная"},
 ]
 
 
@@ -123,6 +124,7 @@ def registration():
     form = RegistrationForm()
     user_service = UserService()
     form.type_service.choices = [(stype.id, stype.name) for stype in user_service.get_list_type_service()]
+    print(form.consent)
     if request.method == "GET":
         return render_template("registration.html", title="Авторизация", form=form, menu=menu, user=current_user)
     if request.method == "POST":
@@ -149,15 +151,15 @@ def create_user_admin(password):
             roles = [
                 Role(
                     name="worker",
-                    description="worker"
+                    description="Работник"
                 ),
                 Role(
                     name="admin",
-                    description="admin"
+                    description="Администратор"
                 ),
                 Role(
                     name="user",
-                    description="user"
+                    description="Пользователь"
                 ),
             ]
             type_service = [
@@ -246,8 +248,8 @@ admin = Admin(app, name="Панель Админ", index_view=MyAdminIndexView()
 admin.add_view(UserAdminView(User, db.session, name="Пользователь"))
 admin.add_view(ClaimAdminView(Claim, db.session, name="Заявки"))
 admin.add_view(ContractAdminView(Contract, db.session, name="Договора", endpoint='contractadminview'))
-admin.add_view(ModelView(TypeService, db.session, name="Тип сервиса"))
-admin.add_view(ModelView(ServiceSelection, db.session, name="Предоставляемые услуги"))
+admin.add_view(ServiceSelectionAdminView(TypeService, db.session, name="Тип сервиса"))
+admin.add_view(ServiceSelectionAdminView(ServiceSelection, db.session, name="Предоставляемые услуги"))
 
 
 admin.add_link(LogoutMenuLink(name="Выход", category="", url="/logout"))
